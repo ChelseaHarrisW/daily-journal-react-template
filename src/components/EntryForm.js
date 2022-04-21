@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react"
 
-export const EntryForm = ({ entry, moods, onFormSubmit }) => {
+export const EntryForm = ({ entry, moods, tags, onFormSubmit }) => {
     const [editMode, setEditMode] = useState(false)
     const [updatedEntry, setUpdatedEntry] = useState(entry)
-
+    const [tagIds, setTagIds] = useState([])
     useEffect(() => {
         setUpdatedEntry(entry)
         if ('id' in entry) {
@@ -23,7 +23,15 @@ export const EntryForm = ({ entry, moods, onFormSubmit }) => {
         newEntry[event.target.name] = event.target.value
         setUpdatedEntry(newEntry)
     }
-
+    const handleCheckboxChange = (event) => {
+        /*
+            When changing a state object or array, always create a new one
+            and change state instead of modifying current one
+        */
+        let tagsCopy = [...tagIds]
+        tagsCopy.push(parseInt(event.target.id))
+        setTagIds(tagsCopy)
+    }
 
 
     const constructNewEntry = () => {
@@ -32,6 +40,7 @@ export const EntryForm = ({ entry, moods, onFormSubmit }) => {
         if (!copyEntry.date) {
             copyEntry.date = Date(Date.now()).toLocaleString('en-us').split('GMT')[0]
         }
+        copyEntry.tags = tagIds
         onFormSubmit(copyEntry)
     }
 
@@ -80,6 +89,22 @@ export const EntryForm = ({ entry, moods, onFormSubmit }) => {
                                 </select>
                             </div>
                         </div>
+                    </div>
+                    <div className="field">
+                        <label htmlFor="tagId" className="label">Tags: </label>
+                        {tags.map(tag => (
+                            <div className="control">
+                                <input
+                                    id={tag.id}
+                                    proptype="int"
+                                    type="checkbox"
+                                    className="custom-control-input"
+                                    value={updatedEntry.tagId}
+                                    onChange={handleCheckboxChange}
+                                /><label key={tag.id} htmlFor="tagName" className="label">{tag.name}</label>
+                            </div>
+                        ))}
+
                     </div>
                     <div className="field">
                         <div className="control">

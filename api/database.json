@@ -40,11 +40,33 @@
     },
     {
       "id": 3,
-      "label": "Angry"
+      "label": "Insightful"
     },
     {
       "id": 4,
-      "label": "Ok"
+      "label": "At Peace"
     }
-  ]
+  ],
+"tags": [
+  {
+    "id": 1,
+    "name": "New Concept"
+  },
+  {
+    "id": 2,
+    "name": "Challenging"
+  },
+  {
+    "id": 3,
+    "name": "I never knew"
+  },
+  {
+    "id": 4,
+    "name": "Just a thought"
+  },
+  {
+    "id": 5,
+    "name": "Interesting"
+  }
+]
 }
